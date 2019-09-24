@@ -11,10 +11,6 @@ router.get('/', asyncHandler(async function (req, res, next) {
 }));
 
 router.post('/', asyncHandler(async function (req, res, next) {
-  let existingCities = await orderRepository.getAll({ name: req.body.name });
-  if (existingCities.length > 0) {
-    return formatResponse(res, 'order existed', 400);
-  }
   let result = await orderRepository.create(req.body);
   return formatResponse(res, result);
 }));

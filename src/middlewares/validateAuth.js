@@ -8,7 +8,9 @@ function validate(req) {
     password: Joi.string()
       .min(6)
       .required(),
-    name: Joi.string().optional()
+    name: Joi.string().optional(),
+    phone: Joi.string().optional(),
+    address: Joi.string().optional()
   };
 
   return Joi.validate(req, schema);

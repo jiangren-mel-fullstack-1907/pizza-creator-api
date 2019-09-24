@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const orderItemSchema = require('./order-item');
 
 const orderSchema = new mongoose.Schema(
     {
@@ -12,7 +11,10 @@ const orderSchema = new mongoose.Schema(
             topping: {type: String, ref: 'Topping'},
             quantity: {type: Number, required: true}
         }],
-        customer: { type: String, ref: 'Customer' }
+        customer: { type: String, ref: 'User' }
+    },
+    {
+      timestamps: true
     },
     {
         versionKey: false

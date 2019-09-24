@@ -15,17 +15,18 @@ router.post('/login', validateAuth, asyncHandler(async function (req, res, next)
     }
 
     const token = generateToken(user._id);
-    return formatResponse(res, { name: user.name, token });
+    return formatResponse(res, { id: user._id, name: user.name, token });
 }));
 
 
 router.post('/', validateAuth, asyncHandler(async function (req, res, next) {
-    const { email, password, name } = req.body;
+    const { email, password, name, address, phone } = req.body;
+    console.log('create a user, address = ', address);
     const existingUser = await userRepository.getByField({ email });
     if (existingUser) {
         return formatResponse(res, 'Email already exists', 400);
     }
-    const user = await userRepository.create({ name, password, email });
+    const user = await userRepository.create({ name, password, email, address, phone });
     return formatResponse(res, user, 201);
 }));
 

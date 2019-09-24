@@ -1,157 +1,17 @@
 openapi: 3.0.0
 info:
-  title: Weather api
+  title: Pizza creator api
   version: 0.0.1
 paths:
-  /cities/count:
-    get:
-      x-controller-name: CityController
-      x-operation-name: count
-      tags:
-        - CityController
-      responses:
-        '200':
-          description: City model count
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: number
-      parameters:
-        - name: where
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-      operationId: CityController.count
-  '/cities/{id}/weathers':
-    post:
-      x-controller-name: CityController
-      x-operation-name: createWeather
-      tags:
-        - CityController
-      responses:
-        '200':
-          description: City.Weather model instance
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Weather'
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: string
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WeatherExcludingId'
-        x-parameter-index: 1
-      operationId: CityController.createWeather
-    patch:
-      x-controller-name: CityController
-      x-operation-name: patchWeather
-      tags:
-        - CityController
-      responses:
-        '200':
-          description: City.Weather PATCH success count
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: number
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: where
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WeatherPartial'
-        x-parameter-index: 1
-      operationId: CityController.patchWeather
-    get:
-      x-controller-name: CityController
-      x-operation-name: findWeather
-      tags:
-        - CityController
-      responses:
-        '200':
-          description: Array of Weather's belonging to City
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Weather'
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: filter
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            additionalProperties: true
-      operationId: CityController.findWeather
-    delete:
-      x-controller-name: CityController
-      x-operation-name: deleteWeather
-      tags:
-        - CityController
-      responses:
-        '200':
-          description: City.Weather DELETE success count
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: number
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: where
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-      operationId: CityController.deleteWeather
-  '/cities/{id}':
+  '/orders/{id}':
     put:
-      x-controller-name: CityController
+      x-controller-name: OrderController
       x-operation-name: replaceById
       tags:
-        - CityController
+        - OrderController
       responses:
         '204':
-          description: City PUT success
+          description: Order PUT success
       parameters:
         - name: id
           in: path
@@ -162,17 +22,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/City'
+              $ref: '#/components/schemas/Order'
         x-parameter-index: 1
-      operationId: CityController.replaceById
+      operationId: OrderController.replaceById
     patch:
-      x-controller-name: CityController
+      x-controller-name: OrderController
       x-operation-name: updateById
       tags:
-        - CityController
+        - OrderController
       responses:
         '204':
-          description: City PATCH success
+          description: Order PATCH success
       parameters:
         - name: id
           in: path
@@ -183,226 +43,86 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CityPartial'
+              $ref: '#/components/schemas/OrderExcludingId'
         x-parameter-index: 1
-      operationId: CityController.updateById
+      operationId: OrderController.updateById
     get:
-      x-controller-name: CityController
+      x-controller-name: OrderController
       x-operation-name: findById
       tags:
-        - CityController
+        - OrderController
       responses:
         '200':
-          description: City model instance
+          description: Order model instance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CityWithRelations'
+                $ref: '#/components/schemas/OrderWithRelations'
       parameters:
         - name: id
           in: path
           schema:
             type: string
           required: true
-      operationId: CityController.findById
+      operationId: OrderController.findById
     delete:
-      x-controller-name: CityController
+      x-controller-name: OrderController
       x-operation-name: deleteById
       tags:
-        - CityController
+        - OrderController
       responses:
         '204':
-          description: City DELETE success
+          description: Order DELETE success
       parameters:
         - name: id
           in: path
           schema:
             type: string
           required: true
-      operationId: CityController.deleteById
-  /cities:
+      operationId: OrderController.deleteById
+  /orders:
     post:
-      x-controller-name: CityController
+      x-controller-name: OrderController
       x-operation-name: create
       tags:
-        - CityController
+        - OrderController
       responses:
         '200':
-          description: City model instance
+          description: Order model instance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/City'
+                $ref: '#/components/schemas/Order'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CityExcludingId'
-      operationId: CityController.create
-    patch:
-      x-controller-name: CityController
-      x-operation-name: updateAll
-      tags:
-        - CityController
-      responses:
-        '200':
-          description: City PATCH success count
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: number
-      parameters:
-        - name: where
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CityPartial'
-      operationId: CityController.updateAll
+              $ref: '#/components/schemas/OrderRequest'
+      operationId: OrderController.create
     get:
-      x-controller-name: CityController
+      x-controller-name: OrderController
       x-operation-name: find
       tags:
-        - CityController
+        - OrderController
       responses:
         '200':
-          description: Array of City model instances
+          description: Array of Order model instances
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CityWithRelations'
-      parameters:
-        - name: filter
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-            properties:
-              where:
-                type: object
-              fields:
-                type: object
-                properties:
-                  id:
-                    type: boolean
-                  name:
-                    type: boolean
-                  post:
-                    type: boolean
-                  state:
-                    type: boolean
-              offset:
-                type: integer
-                minimum: 0
-              limit:
-                type: integer
-                minimum: 0
-              skip:
-                type: integer
-                minimum: 0
-              order:
-                type: array
-                items:
-                  type: string
-              include:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    relation:
-                      type: string
-                    scope:
-                      properties:
-                        where:
-                          type: object
-                        fields:
-                          type: object
-                          properties: {}
-                        offset:
-                          type: integer
-                          minimum: 0
-                        limit:
-                          type: integer
-                          minimum: 0
-                        skip:
-                          type: integer
-                          minimum: 0
-                        order:
-                          type: array
-                          items:
-                            type: string
-      operationId: CityController.find
-  /ping:
-    get:
-      x-controller-name: PingController
-      x-operation-name: ping
-      tags:
-        - PingController
-      responses:
-        '200':
-          description: Ping Response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  greeting:
-                    type: string
-                  date:
-                    type: string
-                  url:
-                    type: string
-                  headers:
-                    type: object
-                    properties:
-                      Content-Type:
-                        type: string
-                    additionalProperties: true
-      operationId: PingController.ping
-  /weathers/count:
-    get:
-      x-controller-name: WeatherController
-      x-operation-name: count
-      tags:
-        - WeatherController
-      responses:
-        '200':
-          description: Weather model count
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: number
-      parameters:
-        - name: where
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-      operationId: WeatherController.count
-  '/weathers/{id}':
+                  $ref: '#/components/schemas/OrderWithRelations'
+      operationId: OrderController.find
+  '/toppings/{id}':
     put:
-      x-controller-name: WeatherController
+      x-controller-name: ToppingController
       x-operation-name: replaceById
       tags:
-        - WeatherController
+        - ToppingController
       responses:
         '204':
-          description: Weather PUT success
+          description: Topping PUT success
       parameters:
         - name: id
           in: path
@@ -413,17 +133,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Weather'
+              $ref: '#/components/schemas/Topping'
         x-parameter-index: 1
-      operationId: WeatherController.replaceById
+      operationId: ToppingController.replaceById
     patch:
-      x-controller-name: WeatherController
+      x-controller-name: ToppingController
       x-operation-name: updateById
       tags:
-        - WeatherController
+        - ToppingController
       responses:
         '204':
-          description: Weather PATCH success
+          description: Topping PATCH success
       parameters:
         - name: id
           in: path
@@ -434,310 +154,448 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WeatherPartial'
+              $ref: '#/components/schemas/ToppingExcludingId'
         x-parameter-index: 1
-      operationId: WeatherController.updateById
+      operationId: ToppingController.updateById
     get:
-      x-controller-name: WeatherController
+      x-controller-name: ToppingController
       x-operation-name: findById
       tags:
-        - WeatherController
+        - ToppingController
       responses:
         '200':
-          description: Weather model instance
+          description: Topping model instance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Weather'
+                $ref: '#/components/schemas/Topping'
       parameters:
         - name: id
           in: path
           schema:
             type: string
           required: true
-      operationId: WeatherController.findById
+      operationId: ToppingController.findById
     delete:
-      x-controller-name: WeatherController
+      x-controller-name: ToppingController
       x-operation-name: deleteById
       tags:
-        - WeatherController
+        - ToppingController
       responses:
         '204':
-          description: Weather DELETE success
+          description: Topping DELETE success
       parameters:
         - name: id
           in: path
           schema:
             type: string
           required: true
-      operationId: WeatherController.deleteById
-  /weathers:
+      operationId: ToppingController.deleteById
+  /toppings:
     post:
-      x-controller-name: WeatherController
+      x-controller-name: ToppingController
       x-operation-name: create
       tags:
-        - WeatherController
+        - ToppingController
       responses:
         '200':
-          description: Weather model instance
+          description: Topping model instance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Weather'
+                $ref: '#/components/schemas/Topping'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WeatherExcludingId'
-      operationId: WeatherController.create
-    patch:
-      x-controller-name: WeatherController
-      x-operation-name: updateAll
-      tags:
-        - WeatherController
-      responses:
-        '200':
-          description: Weather PATCH success count
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: number
-      parameters:
-        - name: where
-          in: query
-          style: deepObject
-          explode: true
-          schema:
-            type: object
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WeatherPartial'
-      operationId: WeatherController.updateAll
+              $ref: '#/components/schemas/ToppingExcludingId'
+      operationId: ToppingController.create
     get:
-      x-controller-name: WeatherController
+      x-controller-name: ToppingController
       x-operation-name: find
       tags:
-        - WeatherController
+        - ToppingController
       responses:
         '200':
-          description: Array of Weather model instances
+          description: Array of Topping model instances
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Weather'
+                  $ref: '#/components/schemas/Topping'
+      operationId: ToppingController.find
+  '/pizzaSizes/{id}':
+    put:
+      x-controller-name: PizzaSizeController
+      x-operation-name: replaceById
+      tags:
+        - PizzaSizeController
+      responses:
+        '204':
+          description: PizzaSize PUT success
       parameters:
-        - name: filter
-          in: query
-          style: deepObject
-          explode: true
+        - name: id
+          in: path
           schema:
-            type: object
-            properties:
-              where:
-                type: object
-              fields:
-                type: object
-                properties:
-                  id:
-                    type: boolean
-                  temperature:
-                    type: boolean
-                  description:
-                    type: boolean
-                  date:
-                    type: boolean
-                  icon:
-                    type: boolean
-                  cityId:
-                    type: boolean
-              offset:
-                type: integer
-                minimum: 0
-              limit:
-                type: integer
-                minimum: 0
-              skip:
-                type: integer
-                minimum: 0
-              order:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PizzaSize'
+        x-parameter-index: 1
+      operationId: PizzaSizeController.replaceById
+    patch:
+      x-controller-name: PizzaSizeController
+      x-operation-name: updateById
+      tags:
+        - PizzaSizeController
+      responses:
+        '204':
+          description: PizzaSize PATCH success
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PizzaSizeExcludingId'
+        x-parameter-index: 1
+      operationId: PizzaSizeController.updateById
+    get:
+      x-controller-name: PizzaSizeController
+      x-operation-name: findById
+      tags:
+        - PizzaSizeController
+      responses:
+        '200':
+          description: PizzaSize model instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaSize'
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      operationId: PizzaSizeController.findById
+    delete:
+      x-controller-name: PizzaSizeController
+      x-operation-name: deleteById
+      tags:
+        - PizzaSizeController
+      responses:
+        '204':
+          description: PizzaSize DELETE success
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      operationId: PizzaSizeController.deleteById
+  /pizzaSizes:
+    post:
+      x-controller-name: PizzaSizeController
+      x-operation-name: create
+      tags:
+        - PizzaSizeController
+      responses:
+        '200':
+          description: PizzaSize model instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PizzaSize'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PizzaSizeExcludingId'
+      operationId: PizzaSizeController.create
+    get:
+      x-controller-name: PizzaSizeController
+      x-operation-name: find
+      tags:
+        - PizzaSizeController
+      responses:
+        '200':
+          description: Array of PizzaSize model instances
+          content:
+            application/json:
+              schema:
                 type: array
                 items:
-                  type: string
-              include:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    relation:
-                      type: string
-                    scope:
-                      properties:
-                        where:
-                          type: object
-                        fields:
-                          type: object
-                          properties: {}
-                        offset:
-                          type: integer
-                          minimum: 0
-                        limit:
-                          type: integer
-                          minimum: 0
-                        skip:
-                          type: integer
-                          minimum: 0
-                        order:
-                          type: array
-                          items:
-                            type: string
-      operationId: WeatherController.find
+                  $ref: '#/components/schemas/PizzaSize'
+
+      operationId: PizzaSizeController.find
+  /users:
+    post:
+      x-controller-name: UserController
+      x-operation-name: create
+      tags:
+        - UserController
+      responses:
+        '200':
+          description: User model instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExcludingPassword'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserExcludingId'
+      operationId: UserController.create
+  /users/login:
+    post:
+      x-controller-name: UserController
+      x-operation-name: login
+      tags:
+        - UserController
+      responses:
+        '200':
+          description: User model instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExcludingPassword'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      operationId: UserController.login
 servers:
   - url: 'http://localhost:3000'
 components:
   schemas:
-    City:
-      title: City
+    Order:
+      title: Order
       properties:
         id:
           type: string
-        name:
-          type: string
-        post:
-          type: string
-        state:
-          type: string
+        totalPrice:
+          type: number
       required:
-        - name
-        - post
-        - state
-    'CityExcludingId':
-      title: 'CityExcludingId'
+        - totalPrice
+    'OrderExcludingId':
+      title: 'OrderExcludingId'
       not:
         anyOf:
           - required:
               - id
       properties:
-        name:
-          type: string
-        post:
-          type: string
-        state:
-          type: string
+        totalPrice:
+          type: number
       required:
-        - name
-        - post
-        - state
-    WeatherWithRelations:
-      title: WeatherWithRelations
+        - totalPrice
+    OrderWithRelations:
+      title: OrderWithRelations
       properties:
         id:
           type: string
-        temperature:
-          type: string
-        description:
-          type: string
-        date:
-          type: string
-          format: date-time
-        icon:
-          type: string
-        cityId:
-          type: string
-        city:
-          $ref: '#/components/schemas/CityWithRelations'
-      required:
-        - temperature
-        - description
-    CityWithRelations:
-      title: CityWithRelations
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        post:
-          type: string
-        state:
-          type: string
-        weathers:
+        pizzaSize: 
+          $ref: '#/components/schemas/PizzaSize'
+        customer:
+          $ref: '#/components/schemas/User'
+        orderItems:
           type: array
           items:
-            $ref: '#/components/schemas/WeatherWithRelations'
+            $ref: '#/components/schemas/OrderItem'
+        totalPrice:
+          type: number
       required:
-        - name
-        - post
-        - state
-    CityPartial:
-      title: CityPartial
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        post:
-          type: string
-        state:
-          type: string
-    Weather:
-      title: Weather
-      properties:
-        id:
-          type: string
-        temperature:
-          type: string
-        description:
-          type: string
-        date:
-          type: string
-          format: date-time
-        icon:
-          type: string
-        cityId:
-          type: string
-      required:
-        - temperature
-        - description
-    'WeatherExcludingId':
-      title: 'WeatherExcludingId'
+        - totalPrice
+        - pizzaSize
+        - customer
+        - orderItems
+    OrderRequest:
+      title: OrderRequest
       not:
         anyOf:
           - required:
               - id
       properties:
-        temperature:
+        pizzaSize: 
           type: string
-        description:
+        customer:
           type: string
-        date:
-          type: string
-          format: date-time
-        icon:
-          type: string
-        cityId:
-          type: string
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemRequest'
+        totalPrice:
+          type: number
       required:
-        - temperature
-        - description
-    WeatherPartial:
-      title: WeatherPartial
+        - totalPrice
+        - pizzaSize
+        - customer
+        - orderItems
+    OrderItem:
+      title: OrderItem
+      properties:
+        topping:
+          $ref: '#/components/schemas/Topping'
+        quantity:
+          type: number
+    OrderItemRequest:
+      title: OrderItemRequest
+      properties:
+        topping:
+          type: string
+        quantity:
+          type: number
+    Topping:
+      title: Topping
       properties:
         id:
           type: string
-        temperature:
+        name:
           type: string
         description:
           type: string
-        date:
-          type: string
-          format: date-time
+        price:
+          type: number
         icon:
           type: string
-        cityId:
+      required:
+        - name
+        - description
+        - price
+    'ToppingExcludingId':
+      title: 'ToppingExcludingId'
+      not:
+        anyOf:
+          - required:
+              - id
+      properties:
+        name:
           type: string
+        description:
+          type: string
+        price:
+          type: number
+        icon:
+          type: string
+      required:
+        - name
+        - description
+        - price
+    PizzaSize:
+      title: PizzaSize
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        icon:
+          type: string
+      required:
+        - name
+        - description
+        - price
+    'PizzaSizeExcludingId':
+      title: 'PizzaSizeExcludingId'
+      not:
+        anyOf:
+          - required:
+              - id
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        icon:
+          type: string
+      required:
+        - name
+        - description
+        - price
+    User:
+      title: User
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+      required:
+        - email
+        - password
+    UserLogin:
+      title: UserLogin
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    'UserExcludingId':
+      title: 'UserExcludingId'
+      not:
+        anyOf:
+          - required:
+              - id
+              - address
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+      required:
+        - name
+        - password
+        - email
+    'UserExcludingPassword':
+      title: 'UserExcludingPassword'
+      not:
+        anyOf:
+          - required:
+              - password
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+      required:
+        - name
+        - email
+        - address
+
