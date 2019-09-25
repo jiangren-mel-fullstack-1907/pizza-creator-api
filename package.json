@@ -1,5 +1,5 @@
 {
-  "name": "weather-api",
+  "name": "pizza-creator-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,8 +9,8 @@
     "prod": "cross-env NODE_ENV=prod nodemon ./bin/www",
     "test": "cross-env NODE_ENV=test jest",
     "test-watch": "jest --verbose --watchAll --coverage",
-    "docker:build": "docker build -t weather-api .",
-    "docker:run": "docker run -p 3000:3000 -d weather-api"
+    "docker:build": "docker build -t pizza-creator-api .",
+    "docker:run": "docker run -p 3000:3000 -d pizza-creator-api"
   },
   "dependencies": {
     "bcrypt": "^3.0.4",

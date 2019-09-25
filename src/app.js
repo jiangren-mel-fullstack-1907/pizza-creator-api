@@ -15,8 +15,6 @@ const swaggerSpec = YAML.load('./swagger/swagger.yaml');
 
 var indexRouter = require('./routes/index');
 
-const PORT = process.env.PORT || 3000;
-
 var app = express();
 
 // view engine setup
@@ -33,7 +31,7 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/api/', indexRouter);
 app.use(errorHandler);
 
 connectToDB()
