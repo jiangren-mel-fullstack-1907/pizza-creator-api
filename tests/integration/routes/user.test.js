@@ -6,7 +6,7 @@ describe('/users', () => {
   describe('POST /', () => {
     const exec = data =>
       request(server)
-        .post('/users')
+        .post('/api/users')
         .send(data);
 
     it('should return 400 if name is missing', async () => {
@@ -62,7 +62,7 @@ describe('/users', () => {
   describe('POST /login', () => {
     const exec = data =>
       request(server)
-        .post('/users/login')
+        .post('/api/users/login')
         .send(data);
 
     it('should return 400 if invalid email', async () => {

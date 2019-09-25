@@ -34,7 +34,7 @@ describe('/cities', () => {
     ];
     const exec = query =>
       request(server)
-        .get(`/cities${query ? `?${query}` : ''}`)
+        .get(`/api/cities${query ? `?${query}` : ''}`)
         .set('Authorization', `Bearer ${TOKEN}`);
 
     beforeAll(async () => {
@@ -64,7 +64,7 @@ describe('/cities', () => {
   describe('POST /', () => {
     const exec = body =>
       request(server)
-        .post(`/cities`)
+        .post(`/api/cities`)
         .set('Authorization', `Bearer ${TOKEN}`)
         .send(body);
 
@@ -95,7 +95,7 @@ describe('/cities', () => {
 
     const exec = id =>
       request(server)
-        .get(`/cities/${id}`)
+        .get(`/api/cities/${id}`)
         .set('Authorization', `Bearer ${TOKEN}`);
 
     beforeAll(async () => {
@@ -124,7 +124,7 @@ describe('/cities', () => {
 
     const exec = (id, body) =>
       request(server)
-        .put(`/cities/${id}`)
+        .put(`/api/cities/${id}`)
         .set('Authorization', `Bearer ${TOKEN}`)
         .send(body);
 
@@ -166,7 +166,7 @@ describe('/cities', () => {
 
     const exec = id =>
       request(server)
-        .delete(`/cities/${id}`)
+        .delete(`/api/cities/${id}`)
         .set('Authorization', `Bearer ${TOKEN}`);
 
     beforeAll(async () => {
