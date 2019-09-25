@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
+const cors = require('cors');
 const { connectToDB } = require('./utils/db');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
@@ -22,6 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(cors());
 
 const morganLvl = process.env.NODE_ENV === 'production' ? 'short' : 'dev';
 const morganLog = morgan(morganLvl, { stream: logger.stream });
