@@ -375,8 +375,6 @@ paths:
             schema:
               $ref: '#/components/schemas/UserLogin'
       operationId: UserController.login
-servers:
-  - url: 'http://localhost:3000'
 components:
   schemas:
     Order:
