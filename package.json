@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prestart": "cross-env NODE_ENV=prod jest",
     "start": "npm run prod",
     "dev": "cross-env NODE_ENV=dev nodemon ./bin/www",
     "prod": "cross-env NODE_ENV=prod nodemon ./bin/www",
