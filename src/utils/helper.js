@@ -1,12 +1,12 @@
 
 function formatResponse(res, payload, code = 200) {
   console.log('format response payload ====>>>>', payload);
-  const response = { code };
+  let response = {};
   if (code < 400) {
     if (payload.data) {
-      response.data = payload.data;
+      response = payload.data;
     } else {
-      response.data = payload;
+      response = payload;
     }
   } else {
     response.error = payload;

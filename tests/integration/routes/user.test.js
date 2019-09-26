@@ -87,7 +87,7 @@ describe('/users', () => {
       const { email, password } = TEST_USER;
       const res = await exec({ email, password });
       expect(res.status).toBe(200);
-      expect(res.body.data).toHaveProperty('token');
+      expect(res.body).toHaveProperty('token');
     });
 
     it('should return 401 if incorrect password or email', async () => {

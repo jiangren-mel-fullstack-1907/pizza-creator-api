@@ -48,16 +48,14 @@ describe('/cities', () => {
     it('should return all cities', async () => {
       const res = await exec();
       expect(res.status).toBe(200);
-      expect(res.body).toHaveProperty('data');
-      expect(res.body.data.length).toBeGreaterThanOrEqual(3);
+      expect(res.body.length).toBeGreaterThanOrEqual(3);
     });
 
     it('should return 1 city with search key', async () => {
       const res = await exec('name=Richmond');
       expect(res.status).toBe(200);
-      expect(res.body).toHaveProperty('data');
-      expect(res.body.data.length).toBe(1);
-      expect(res.body.data[0]).toMatchObject(cities[2]);
+      expect(res.body.length).toBe(1);
+      expect(res.body[0]).toMatchObject(cities[2]);
     });
   });
 
@@ -111,7 +109,7 @@ describe('/cities', () => {
     it('should return 200 if object id exist', async () => {
       const res = await exec(city._id);
       expect(res.status).toBe(200);
-      expect(res.body.data).toMatchObject(fields);
+      expect(res.body).toMatchObject(fields);
     });
   });
 
@@ -145,7 +143,7 @@ describe('/cities', () => {
       };
       const res = await exec(city._id, newDoc);
       expect(res.status).toBe(200);
-      expect(res.body.data).toMatchObject(newDoc);
+      expect(res.body).toMatchObject(newDoc);
     });
 
     it('should return 400 if the update object is invalid', async () => {
